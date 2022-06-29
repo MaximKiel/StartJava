@@ -15,10 +15,10 @@ public class VariablesTheme {
                 + cpuFrequency + " " + freeMemory + " " + symbol + " " + logicalValue);
 
         System.out.println("\n2. Расчет стоимости товара со скидкой");
-        int priceX = 100;
-        int priceY = 200;
-        double discount = (priceX + priceY) * 0.11;
-        double discountPrice = (priceX + priceY) - discount;
+        int priceGoodsX = 100;
+        int priceGoodsY = 200;
+        double discount = (priceGoodsX + priceGoodsY) * 0.11;
+        double discountPrice = (priceGoodsX + priceGoodsY) - discount;
 
         System.out.println("Сумма скидки: " + discount + " Общая стоимость товаров со скидкой: "
                 + discountPrice + "\n");
@@ -42,7 +42,8 @@ public class VariablesTheme {
         double number1 = 1.1;
         double number2 = 2.2;
 
-        System.out.println("Замена с помощью третьей переменной: " + "\n" + "Исходные значения - переменная 1: " + number1 + " переменная 2: " + number2);
+        System.out.println("Замена с помощью третьей переменной: " + "\n" +
+                "Исходные значения - переменная 1: " + number1 + " переменная 2: " + number2);
         double buffer = number1;
         number1 = number2;
         number2 = buffer;
@@ -94,11 +95,12 @@ public class VariablesTheme {
         char open = '(';
         char close = ')';
 
-        System.out.println("" + space + space + space + space + slash + backslash + space + space + space + space + "\n" +
-                space + space + space + slash + space + space + backslash + space + space + space + "\n" +
+        System.out.println("" + space + space + space + space + slash + backslash + space + space + space + space +
+                "\n" + space + space + space + slash + space + space + backslash + space + space + space + "\n" +
                 space + space + slash + underscore + open + space + close + backslash + space + space + "\n" +
                 space + slash + space + space + space + space + space + space + backslash + space + "\n" +
-                slash + underscore + underscore + underscore + underscore + slash + backslash + underscore + underscore + backslash);
+                slash + underscore + underscore + underscore + underscore + slash + backslash + underscore +
+                underscore + backslash);
 
         System.out.println("\n9. Отображение количества сотен, десятков и единиц числа");
         srcNum = 123;
@@ -112,7 +114,7 @@ public class VariablesTheme {
         int totalSec = 86399;
         int hour = totalSec / 3600;
         int min = totalSec / 60 % 60;
-        int sec = totalSec % 3600 / 60;
+        int sec = totalSec % 60;
 
         System.out.println(hour + ":" + min + ":" + sec);
     }
