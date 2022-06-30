@@ -43,18 +43,18 @@ public class IfElseStatementTheme {
         num1 = 23;
         if (num1 == 0) {
             System.out.println("Число равно нулю");
-        }
+        } else {
+            if (num1 % 2 == 0) {
+                System.out.println("Число " + num1 + " четное");
+            } else {
+                System.out.println("Число " + num1 + " нечетное");
+            }
 
-        if (num1 != 0 && num1 % 2 == 0) {
-            System.out.println("Число " + num1 + " четное");
-        } else if (num1 != 0 && num1 % 2 != 0) {
-            System.out.println("Число " + num1 + " нечетное");
-        }
-
-        if (num1 > 0) {
-            System.out.println("Число " + num1 + " положительное");
-        } else if (num1 < 0) {
-            System.out.println("Число " + num1 + " отрицательное");
+            if (num1 > 0) {
+                System.out.println("Число " + num1 + " положительное");
+            } else {
+                System.out.println("Число " + num1 + " отрицательное");
+            }
         }
 
         System.out.println("\n4. Поиск одинаковых цифр в числах");
@@ -86,9 +86,9 @@ public class IfElseStatementTheme {
 
         System.out.println("\n5. Определение буквы, числа или символа по их коду");
         char unknownChar = '\u0057';
-        if (unknownChar >= 'a' && unknownChar <= 'z' || unknownChar >='A' && unknownChar <= 'Z') {
+        if ((unknownChar >= 'a' && unknownChar <= 'z') || (unknownChar >='A' && unknownChar <= 'Z')) {
             System.out.println(unknownChar + " это буква");
-        } else if (unknownChar >= 0 && unknownChar <= 9) {
+        } else if (unknownChar >= '0' && unknownChar <= '9') {
             System.out.println(unknownChar + " это число");
         } else {
             System.out.println(unknownChar + " это не буква и не число");
