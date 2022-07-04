@@ -118,23 +118,22 @@ public class CyclesTheme {
 
         System.out.println();
 
-        symCounter = 0;
         rowCounter = 0;
-
-        //"нужно было написать решение, которое у тебя вызывает бесконечный цикл" - представлено ниже
+        counter = 0;
 
         do {
+            symCounter = 0;
             do {
                 System.out.print("$");
                 symCounter++;
             } while (symCounter <= rowCounter);
-            System.out.println();
-            symCounter = 0;
-            if (rowCounter < 2) {
+            counter++;
+            if (counter <= 2) {
                 rowCounter++;
             } else {
                 rowCounter--;
             }
+            System.out.println();
         } while (rowCounter >= 0);
 
         System.out.println("\n7. Отображение ASCII-символов");
@@ -154,6 +153,7 @@ public class CyclesTheme {
 
         System.out.println("\n\n8. Проверка, является ли число палиндромом");
         srcNum = 1234321;
+        int tmpSrcNum = srcNum;
         int reverseSrcNum = 0;
 
         System.out.print("Число " + srcNum);
@@ -164,10 +164,7 @@ public class CyclesTheme {
             srcNum /= 10;
         }
 
-        // "по num1 = 1234321 (изменен на srcNum); тоже самое, что и в 5й задаче" -
-        // тогда тут не получается выполнить условие ниже
-
-        if (srcNum == reverseSrcNum) {
+        if (tmpSrcNum == reverseSrcNum) {
             System.out.println(" является палиндромом");
         } else {
             System.out.println(" не является палиндромом");
@@ -180,13 +177,6 @@ public class CyclesTheme {
         int sumLeftHalfNum = 0;
         int sumRightHalfNum = 0;
 
-        //"по srcNum = 143224; тоже самое, что и в 5й задаче" - поскольку цифры выделялись из половинок, а не из
-        // целого числа, с srcNum проблем нет, но тогда не понятно, как корректно вывести эту часть задачи:
-        // каждую тройку цифр в формате “Сумма цифр abc = sum”
-
-        System.out.println("Сумма цифр " + leftHalfNum + " = ");
-        System.out.println("Сумма цифр " + rightHalfNum + " = ");
-
         while (leftHalfNum > 0 && rightHalfNum > 0) {
             sumLeftHalfNum += leftHalfNum % 10;
             sumRightHalfNum += rightHalfNum % 10;
@@ -194,8 +184,8 @@ public class CyclesTheme {
             rightHalfNum /= 10;
         }
 
-        System.out.println(sumLeftHalfNum);
-        System.out.println(sumRightHalfNum);
+        System.out.println("Сумма цифр " + srcNum / 1000 + " = " + sumLeftHalfNum);
+        System.out.println("Сумма цифр " + srcNum % 1000 + " = " + sumRightHalfNum);
 
         if (sumLeftHalfNum == sumRightHalfNum) {
             System.out.println("Число " + srcNum + " является счастливым");
