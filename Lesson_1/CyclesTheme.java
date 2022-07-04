@@ -74,23 +74,23 @@ public class CyclesTheme {
         }
 
         System.out.println("\n\n5. Проверка количества единиц на четность");
-        int num = 3141591;
+        srcNum = 3141591;
         int countOnes = 0;
 
-        while (num > 0) {
-            digit = num % 10;
+        System.out.print("Число " + srcNum + " содержит ");
+
+        while (srcNum > 0) {
+            digit = srcNum % 10;
             if (digit == 1) {
-                countOnes += digit;
+                countOnes++;
             }
-            num /= 10;
+            srcNum /= 10;
         }
 
-        num = 3141591;
-
         if (countOnes % 2 == 0) {
-            System.out.println("Число " + num + " содержит " + countOnes + " (четное) количество единиц");
+            System.out.println(countOnes + " (четное) количество единиц");
         } else {
-            System.out.println("Число " + num + " содержит " + countOnes + " (нечетное) количество единиц");
+            System.out.println(countOnes + " (нечетное) количество единиц");
         }
 
         System.out.println("\n6. Отображение фигур в консоли");
@@ -121,15 +121,7 @@ public class CyclesTheme {
         symCounter = 0;
         rowCounter = 0;
 
-        do {
-            do {
-                System.out.print("$");
-                symCounter++;
-            } while (symCounter <= rowCounter);
-            System.out.println();
-            symCounter = 0;
-            rowCounter++;
-        } while (rowCounter < 2);
+        //"нужно было написать решение, которое у тебя вызывает бесконечный цикл" - представлено ниже
 
         do {
             do {
@@ -138,7 +130,11 @@ public class CyclesTheme {
             } while (symCounter <= rowCounter);
             System.out.println();
             symCounter = 0;
-            rowCounter--;
+            if (rowCounter < 2) {
+                rowCounter++;
+            } else {
+                rowCounter--;
+            }
         } while (rowCounter >= 0);
 
         System.out.println("\n7. Отображение ASCII-символов");
@@ -157,53 +153,51 @@ public class CyclesTheme {
         }
 
         System.out.println("\n\n8. Проверка, является ли число палиндромом");
-        num1 = 1234321;
-        counter = 0;
-        num2 = 0;
+        srcNum = 1234321;
+        int reverseSrcNum = 0;
 
-        while (num1 > 0) {
-            digit = num1 % 10;
-            num2 = 10 * num2 + digit;
-            num1 /= 10;
-            counter++;
+        System.out.print("Число " + srcNum);
+
+        while (srcNum > 0) {
+            digit = srcNum % 10;
+            reverseSrcNum = 10 * reverseSrcNum + digit;
+            srcNum /= 10;
         }
 
-        num1 = 1234321;
+        // "по num1 = 1234321 (изменен на srcNum); тоже самое, что и в 5й задаче" -
+        // тогда тут не получается выполнить условие ниже
 
-        if (num1 == num2) {
-            System.out.println("Число " + num1 + " является палиндромом");
+        if (srcNum == reverseSrcNum) {
+            System.out.println(" является палиндромом");
         } else {
-            System.out.println("Число " + num1 + " не является палиндромом");
+            System.out.println(" не является палиндромом");
         }
 
         System.out.println("\n9. Определение, является ли число счастливым");
         srcNum = 143224;
-        num1 = 0;
-        num2 = 0;
-        counter = 0;
-        int sumNum1 = 0;
-        int sumNum2 = 0;
+        int leftHalfNum = srcNum / 1000;
+        int rightHalfNum = srcNum % 1000;
+        int sumLeftHalfNum = 0;
+        int sumRightHalfNum = 0;
 
-        while (srcNum > 0) {
-            digit = srcNum % 10;
-            if (counter <= 2) {
-                sumNum1 += digit;
-                num1 = 10 * num1 + digit;
-            }
-            if (counter > 2) {
-                sumNum2 += digit;
-                num2 = 10 * num2 + digit;
-            }
-            srcNum /= 10;
-            counter++;
+        //"по srcNum = 143224; тоже самое, что и в 5й задаче" - поскольку цифры выделялись из половинок, а не из
+        // целого числа, с srcNum проблем нет, но тогда не понятно, как корректно вывести эту часть задачи:
+        // каждую тройку цифр в формате “Сумма цифр abc = sum”
+
+        System.out.println("Сумма цифр " + leftHalfNum + " = ");
+        System.out.println("Сумма цифр " + rightHalfNum + " = ");
+
+        while (leftHalfNum > 0 && rightHalfNum > 0) {
+            sumLeftHalfNum += leftHalfNum % 10;
+            sumRightHalfNum += rightHalfNum % 10;
+            leftHalfNum /= 10;
+            rightHalfNum /= 10;
         }
 
-        System.out.println("Сумма цифр " + num1 + " = "+ sumNum1);
-        System.out.println("Сумма цифр " + num2 + " = "+ sumNum2);
+        System.out.println(sumLeftHalfNum);
+        System.out.println(sumRightHalfNum);
 
-        srcNum = 143224;
-
-        if (sumNum1 == sumNum2) {
+        if (sumLeftHalfNum == sumRightHalfNum) {
             System.out.println("Число " + srcNum + " является счастливым");
         } else {
             System.out.println("Число " + srcNum + " не является счастливым");
@@ -219,16 +213,14 @@ public class CyclesTheme {
                         System.out.printf("%3d", i * j);
                     }
                     if (j == 9) {
-                        System.out.printf("%3d", i * j);
-                        System.out.println();
+                        System.out.printf("%3d\n", i * j);
                         for (int k = 1; k < 28; k++) {
                             System.out.print("-");
                         }
                     }
                 } else {
                     if (j == 1) {
-                        System.out.print(i * j);
-                        System.out.print(" |");
+                        System.out.print(i * j + " |");
                     } else {
                         System.out.printf("%3d", i * j);
                     }
