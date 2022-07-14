@@ -1,18 +1,9 @@
 public class Calculator {
 
-    private String answer;
     private int num1;
     private int num2;
     private char mathSign;
     private int result = 0;
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 
     public int getNum1() {
         return num1;
@@ -28,10 +19,6 @@ public class Calculator {
 
     public void setNum2(int num2) {
         this.num2 = num2;
-    }
-
-    public char getMathSign() {
-        return mathSign;
     }
 
     public void setMathSign(char mathSign) {

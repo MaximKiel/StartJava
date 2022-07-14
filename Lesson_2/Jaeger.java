@@ -7,7 +7,7 @@ public class Jaeger {
     public Jaeger() {
     }
 
-    public Jaeger (String modelName, String origin, int speed) {
+    public Jaeger(String modelName, String origin, int speed) {
         this.modelName = modelName;
         this.origin = origin;
         this.speed = speed;
@@ -37,11 +37,7 @@ public class Jaeger {
         this.speed = speed;
     }
 
-    public void showInfo() {
-        System.out.println("The Jaeger " + modelName + " produced in " + origin + " can move at a speed of " + speed);
-    }
-
-    public void move () {
+    public void move() {
         System.out.println(modelName + " is moving");
     }
 
