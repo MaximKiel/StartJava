@@ -3,7 +3,7 @@ public class Calculator {
     private int num1;
     private int num2;
     private char mathSign;
-    private int result = 0;
+    private int result;
 
     public int getNum1() {
         return num1;

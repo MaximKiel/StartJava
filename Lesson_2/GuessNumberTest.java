@@ -4,12 +4,18 @@ public class GuessNumberTest {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GuessNumber guessNumber = new GuessNumber();
+
+        System.out.print("Введите имя 1 игрока: ");
+        Player playerOne = new Player(scanner.next());
+
+        System.out.print("Введите имя 2 игрока: ");
+        Player playerTwo = new Player(scanner.next());
+
+        GuessNumber guessNumber = new GuessNumber(playerOne, playerTwo);
         String answer;
 
         do {
-            System.out.println("\nНачинаем! Компьютер загадал число от 0 до 100! Теперь попробуйте угадать его!");
-            guessNumber.gameProcess();
+            guessNumber.gameStart();
             do {
                 System.out.println("Хотите продолжить вычисления? [yes/no]:");
                 answer = scanner.next();

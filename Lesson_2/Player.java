@@ -1,15 +1,10 @@
-import java.util.Scanner;
-
 public class Player {
-
-    Scanner scanner = new Scanner(System.in);
 
     private int number;
     private String name;
 
-    public Player() {
-        System.out.print("Введите имя игрока: ");
-        name = scanner.next();
+    public Player(String name) {
+        this.name = name;
     }
 
     public String getName() {
