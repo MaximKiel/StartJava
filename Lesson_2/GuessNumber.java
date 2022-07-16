@@ -14,35 +14,37 @@ public class GuessNumber {
         this.playerTwo = player2;
     }
 
-    public void gameStart() {
+    public void start() {
         computerNumber = random.nextInt(100) + 1;
         System.out.println("\nНачинаем! Компьютер загадал число от 0 до 100! Теперь попробуйте угадать его!");
         do {
             System.out.print("Игрок " + playerOne.getName() + " предлагает число: ");
             playerOne.setNumber(scanner.nextInt());
-            checkNumber(playerOne.getNumber());
-            if (playerOne.getNumber() == computerNumber) {
+            if (checkNumber(playerOne)) {
                 break;
             }
             System.out.print("Игрок " + playerTwo.getName() + " предлагает число: ");
             playerTwo.setNumber(scanner.nextInt());
-            checkNumber(playerTwo.getNumber());
-            if (playerTwo.getNumber() == computerNumber) {
+            if (checkNumber(playerTwo)) {
                 break;
             }
         } while (true);
     }
 
-    private void checkNumber(int targetNumber) {
-        if (targetNumber <= 0 || targetNumber > 100) {
+    private boolean checkNumber(Player player) {
+        if (player.getNumber() <= 0 || player.getNumber() > 100) {
             System.out.println("Ошибка! Число должно быть в полуинтервале (0; 100]");
+            return false;
         } else {
-            if (targetNumber == computerNumber) {
-                System.out.println("Вы угадали!");
-            } else if (targetNumber > computerNumber) {
-                System.out.println("Число " + targetNumber + " больше того, что загадал компьютер");
-            } else if (targetNumber < computerNumber) {
-                System.out.println("Число " + targetNumber + " меньше того, что загадал компьютер");
+            if (player.getNumber() == computerNumber) {
+                System.out.println("Игрок " + player.getName() + " угадал!");
+                return true;
+            } else if (player.getNumber() > computerNumber) {
+                System.out.println("Число " + player.getNumber() + " больше того, что загадал компьютер");
+                return false;
+            } else {
+                System.out.println("Число " + player.getNumber() + " меньше того, что загадал компьютер");
+                return false;
             }
         }
     }
