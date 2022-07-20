@@ -1,4 +1,4 @@
-package com.lesson_1.final;
+package com.lesson_1.final_hw;
 
 public class MyFirstGame {
 
