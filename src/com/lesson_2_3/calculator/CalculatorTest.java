@@ -25,6 +25,6 @@ public class CalculatorTest {
             } while (!answer.equals("yes") && !answer.equals("no"));
         } while (answer.equals("yes"));
 
-        System.out.println("Калькулятор закравается! До свидания!");
+        System.out.println("Калькулятор закравается. До свидания!");
     }
 }
