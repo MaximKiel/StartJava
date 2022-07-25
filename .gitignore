@@ -4,3 +4,9 @@ out
 # игнорировать файлы с параметрами командной строки
 src/com/lesson_2_3/calculator/options
 src/com/lesson_2_3/calculator/optionsj
+
+# игноирировать папку .idea, содержащую файлы среды разработки
+.idea
+
+# игноирировать файл StartJava.iml, вспомогательный файл среди разработки
+StartJava.iml
