@@ -1,4 +1,4 @@
-package com.lesson_2_3.guess;
+package com.lesson_2_3_4.guess;
 
 public class Player {
 

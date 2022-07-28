@@ -1,4 +1,4 @@
-package com.lesson_2_3.robot;
+package com.lesson_2_3_4.robot;
 
 public class Jaeger {
 

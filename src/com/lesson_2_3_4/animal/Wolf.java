@@ -1,4 +1,4 @@
-package com.lesson_2_3.animal;
+package com.lesson_2_3_4.animal;
 
 public class Wolf {
 
