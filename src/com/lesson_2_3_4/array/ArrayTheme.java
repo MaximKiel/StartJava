@@ -152,18 +152,6 @@ public class ArrayTheme {
                 printArrayString(stringArray2);
             }
         }
-//
-//
-//        for (int i = 0; i < length; i++) {
-//            if (!stringArray1[i].isBlank()) {
-//                System.arraycopy(stringArray1, i, stringArray2, indexCounter, 1);
-//                indexCounter++;
-//            }
-//        }
-//
-//        System.out.print("\nНовый массив: ");
-//
-//        printArrayString(stringArray2);
     }
 
     private static void printArrayInt(int[] array) {
