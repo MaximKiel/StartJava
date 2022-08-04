@@ -7,24 +7,22 @@ public class ArrayTheme {
         int[] intArray = {1, 2, 3, 4, 5, 6, 7};
 
         System.out.print("Исходный массив: ");
-
         printArrayInt(intArray);
 
-        int tmp;
         int length = intArray.length;
 
         for (int i = 0; i < length / 2; i++) {
-            tmp = intArray[length - i - 1];
+            int tmp = intArray[length - i - 1];
             intArray[length - i - 1] = intArray[i];
             intArray[i] = tmp;
         }
 
         System.out.print("\nРеверсивный массив: ");
-
         printArrayInt(intArray);
 
         System.out.println("\n\n2. Вывод произведения элементов массива");
         intArray = new int[10];
+
         for (int i = 0; i < intArray.length; i++) {
             intArray[i] = i;
         }
@@ -39,7 +37,6 @@ public class ArrayTheme {
         }
 
         System.out.println("\nЭлемент под индексом 0 = " + intArray[0]);
-
         System.out.println("Элемент под индексом " + (length - 1) + " = " + intArray[length - 1]);
 
         System.out.println("\n3. Удаление элементов массива");
@@ -51,11 +48,9 @@ public class ArrayTheme {
         }
 
         System.out.print("Исходный массив: ");
-
-        printArrayDouble(doubleArray, 7);
+        printArrayDouble(doubleArray, doubleArray.length / 2);
 
         int zeroCounter = 0;
-
         for (int i = 0; i < length; i++) {
             if (doubleArray[i] > doubleArray[7]) {
                 doubleArray[i] = 0;
@@ -64,8 +59,7 @@ public class ArrayTheme {
         }
 
         System.out.print("Измененный массив: ");
-
-        printArrayDouble(doubleArray, 7);
+        printArrayDouble(doubleArray, doubleArray.length / 2);
 
         System.out.println("Количество обнуленных ячеек: " + zeroCounter);
 
@@ -78,21 +72,15 @@ public class ArrayTheme {
             symbolsArray[i] = letter++;
         }
 
-        int charCounter = 0;
-        int rowCounter = 0;
         int indexCounter = length - 1;
-
-        do {
-            while (charCounter <= rowCounter) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j <= i; j++) {
                 System.out.print(symbolsArray[indexCounter]);
-                charCounter++;
                 indexCounter--;
             }
             System.out.println();
             indexCounter = length - 1;
-            charCounter = 0;
-            rowCounter++;
-        } while (rowCounter < length);
+        }
 
         System.out.println("\n5. Генерация уникальных чисел");
         intArray = new int[30];
@@ -109,7 +97,7 @@ public class ArrayTheme {
         for (int i = length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (intArray[j] > intArray[j + 1]) {
-                    tmp = intArray[j];
+                    int tmp = intArray[j];
                     intArray[j] = intArray[j + 1];
                     intArray[j + 1] = tmp;
                 }
@@ -128,30 +116,27 @@ public class ArrayTheme {
         length = stringArray1.length;
 
         System.out.print("Исходный массив: ");
-
         printArrayString(stringArray1);
 
         System.out.print("\nНовый массив: ");
 
-        String[] stringArray2;
-
+        indexCounter = 0;
         for (int i = 0; i < length; i++) {
             if (!stringArray1[i].isBlank()) {
-                indexCounter = 1;
-
-                if (!stringArray1[indexCounter + 1].isBlank()) {
-                    do {
-                        indexCounter++;
-                    } while (!stringArray1[indexCounter].isBlank());
-                }
-
-                stringArray2 = new String[indexCounter];
-
-                System.arraycopy(stringArray1, i, stringArray2, 0, indexCounter);
-
-                printArrayString(stringArray2);
+                indexCounter++;
             }
         }
+
+        String[] stringArray2 = new String[indexCounter];
+
+        indexCounter = 0;
+        for (int i = 0; i < length; i++) {
+            if (!stringArray1[i].isBlank()) {
+                System.arraycopy(stringArray1, i, stringArray2, indexCounter, 1);
+                indexCounter++;
+            }
+        }
+        printArrayString(stringArray2);
     }
 
     private static void printArrayInt(int[] array) {
@@ -161,8 +146,9 @@ public class ArrayTheme {
     }
 
     private static void printArrayDouble(double[] array, int counter) {
+        System.out.println();
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+            System.out.printf("%6.3f", array[i]);
             if (i != 0 && i % counter == 0) {
                 System.out.println();
             }
