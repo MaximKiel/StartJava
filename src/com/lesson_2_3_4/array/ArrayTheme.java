@@ -119,20 +119,29 @@ public class ArrayTheme {
 
         System.out.print("\nНовый массив: ");
 
-        int newLength = 0;
+        int countNonEmptyStr = 0;
         for (int i = 0; i < length; i++) {
-            if (!srcArrayStrings[i].isBlank()) {
-                newLength++;
-            }
+            if (!srcArrayStrings[i].isBlank()) countNonEmptyStr++;
         }
 
-        String[] destArrayStrings = new String[newLength];
+        String[] destArrayStrings = new String[countNonEmptyStr];
 
-        newLength = 0;
+        int startIdx;
+        int finishIdx;
+        int count = 0;
+        int lastIdx = 0;
+
         for (int i = 0; i < length; i++) {
             if (!srcArrayStrings[i].isBlank()) {
-                System.arraycopy(srcArrayStrings, i, destArrayStrings, newLength, 1);
-                newLength++;
+                startIdx = i;
+                finishIdx = i;
+                while (i < length && !srcArrayStrings[i].isBlank()) {
+                    finishIdx++;
+                    count++;
+                    i++;
+                }
+                System.arraycopy(srcArrayStrings, startIdx, destArrayStrings, lastIdx, finishIdx - startIdx);
+                lastIdx = count;
             }
         }
         printArrayString(destArrayStrings);
