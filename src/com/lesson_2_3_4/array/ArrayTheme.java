@@ -48,7 +48,7 @@ public class ArrayTheme {
         }
 
         System.out.print("Исходный массив: ");
-        printArrayDouble(doubleArray, doubleArray.length / 2);
+        printArrayDouble(doubleArray, length / 2);
 
         int zeroCounter = 0;
         for (int i = 0; i < length; i++) {
@@ -59,7 +59,7 @@ public class ArrayTheme {
         }
 
         System.out.print("Измененный массив: ");
-        printArrayDouble(doubleArray, doubleArray.length / 2);
+        printArrayDouble(doubleArray, length / 2);
 
         System.out.println("Количество обнуленных ячеек: " + zeroCounter);
 
@@ -88,11 +88,10 @@ public class ArrayTheme {
 
         for (int i = 0; i < length; i++) {
             intArray[i] = (int) (Math.random() * (100 - 60 + 1) + 60);
+            do {
+                if (!checkRepeatElements(intArray)) break;
+            } while (true);
         }
-
-        do {
-            if (!checkRepeatElements(intArray)) break;
-        } while (true);
 
         for (int i = length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
@@ -112,31 +111,31 @@ public class ArrayTheme {
         }
 
         System.out.println("\n6. Сдвиг элементов массива");
-        String[] stringArray1 = {"", "AA", "", "BBB", "CC", "D", "", "E", "FF", "G", ""};
-        length = stringArray1.length;
+        String[] srcArrayStrings = {"", "AA", "", "BBB", "CC", "D", "", "E", "FF", "G", ""};
+        length = srcArrayStrings.length;
 
         System.out.print("Исходный массив: ");
-        printArrayString(stringArray1);
+        printArrayString(srcArrayStrings);
 
         System.out.print("\nНовый массив: ");
 
-        indexCounter = 0;
+        int newLength = 0;
         for (int i = 0; i < length; i++) {
-            if (!stringArray1[i].isBlank()) {
-                indexCounter++;
+            if (!srcArrayStrings[i].isBlank()) {
+                newLength++;
             }
         }
 
-        String[] stringArray2 = new String[indexCounter];
+        String[] destArrayStrings = new String[newLength];
 
-        indexCounter = 0;
+        newLength = 0;
         for (int i = 0; i < length; i++) {
-            if (!stringArray1[i].isBlank()) {
-                System.arraycopy(stringArray1, i, stringArray2, indexCounter, 1);
-                indexCounter++;
+            if (!srcArrayStrings[i].isBlank()) {
+                System.arraycopy(srcArrayStrings, i, destArrayStrings, newLength, 1);
+                newLength++;
             }
         }
-        printArrayString(stringArray2);
+        printArrayString(destArrayStrings);
     }
 
     private static void printArrayInt(int[] array) {
