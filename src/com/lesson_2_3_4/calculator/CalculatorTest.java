@@ -1,37 +1,39 @@
 package com.lesson_2_3_4.calculator;
 
 import java.util.Scanner;
-import static com.lesson_2_3_4.calculator.Calculator.calculate;
 
 public class CalculatorTest {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         String answer;
-        String mathExp;
-        String[] mathExpAr;
-        boolean repeat;
 
         do {
+            Scanner scanner = new Scanner(System.in);
+            String mathExp;
+            String[] mathExpAr;
+            boolean repeat;
+
             do {
                 try {
-                    System.out.print("Введите математическое выражение: ");
-                    mathExp = scanner.nextInt() + " " + scanner.next().charAt(0) + " " + scanner.nextInt();
-                    mathExpAr = mathExp.split(" ");
+                System.out.print("Введите математическое выражение: ");
+                mathExp = scanner.nextLine();
+                mathExpAr = mathExp.split(" ");
 
-                    if (Integer.parseInt(mathExpAr[0]) > 0 && Integer.parseInt(mathExpAr[2]) > 0) {
-                        System.out.println(calculate(Integer.parseInt(mathExpAr[0]),
-                                mathExpAr[1], Integer.parseInt(mathExpAr[2])));
+                if (Integer.parseInt(mathExpAr[0]) > 0 && Integer.parseInt(mathExpAr[2]) > 0) {
+                    System.out.println(Calculator.calculate(mathExpAr));
                         repeat = false;
                     } else {
                         System.out.println("Числа для вычислений должны быть положительными!");
                         repeat = true;
                     }
                 }
-                catch (Throwable exc) {
+                catch (NumberFormatException exc) {
                     System.out.println("Вы ввели некорректное выражение!");
                     repeat = true;
-                    scanner.next();
+                }
+                catch (IllegalStateException exc) {
+                    System.out.println("Вы ввели некорректный знак операции!");
+                    repeat = true;
                 }
 
             } while (repeat);
