@@ -19,7 +19,6 @@ public class CalculatorTest {
                 } catch (NumberFormatException | IllegalStateException e) {
                     System.out.println(e.getMessage());
                 }
-
             } while (true);
 
             do {
