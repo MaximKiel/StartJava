@@ -9,26 +9,18 @@ public class CalculatorTest {
 
         do {
             Scanner scanner = new Scanner(System.in);
-            boolean repeat;
 
             do {
                 try {
-                System.out.print("Введите математическое выражение: ");
-                String expression = scanner.nextLine();
-                int result = Calculator.calculate(expression);
-                System.out.println(expression + " = " + result);
-                repeat = false;
-                }
-                catch (NumberFormatException exc) {
-                    System.out.println("Вы ввели некорректное выражение!");
-                    repeat = true;
-                }
-                catch (IllegalStateException exc) {
-                    System.out.println("Вы ввели некорректный знак операции!");
-                    repeat = true;
+                    System.out.print("Введите математическое выражение: ");
+                    String expression = scanner.nextLine();
+                    System.out.println(expression + " = " + Calculator.calculate(expression));
+                    break;
+                } catch (NumberFormatException | IllegalStateException e) {
+                    System.out.println(e.getMessage());
                 }
 
-            } while (repeat);
+            } while (true);
 
             do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
