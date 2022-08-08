@@ -9,23 +9,15 @@ public class CalculatorTest {
 
         do {
             Scanner scanner = new Scanner(System.in);
-            String mathExp;
-            String[] mathExpAr;
             boolean repeat;
 
             do {
                 try {
                 System.out.print("Введите математическое выражение: ");
-                mathExp = scanner.nextLine();
-                mathExpAr = mathExp.split(" ");
-
-                if (Integer.parseInt(mathExpAr[0]) > 0 && Integer.parseInt(mathExpAr[2]) > 0) {
-                    System.out.println(Calculator.calculate(mathExpAr));
-                        repeat = false;
-                    } else {
-                        System.out.println("Числа для вычислений должны быть положительными!");
-                        repeat = true;
-                    }
+                String expression = scanner.nextLine();
+                int result = Calculator.calculate(expression);
+                System.out.println(expression + " = " + result);
+                repeat = false;
                 }
                 catch (NumberFormatException exc) {
                     System.out.println("Вы ввели некорректное выражение!");
