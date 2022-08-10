@@ -13,13 +13,20 @@ public class GuessNumberTest {
         System.out.print("Введите имя 2 игрока: ");
         Player playerTwo = new Player(scanner.next());
 
-        GuessNumber game = new GuessNumber(playerOne, playerTwo);
+        System.out.print("Введите имя 3 игрока: ");
+        Player playerTree = new Player(scanner.next());
+
+        Player[] players = {playerOne, playerTwo, playerTree};
+
+        Selection selection = new Selection(players);
+        GuessNumber game = new GuessNumber(players);
         String answer;
 
         do {
+            selection.draw(players);
             game.start();
             do {
-                System.out.println("Хотите продолжить вычисления? [yes/no]:");
+                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
                 answer = scanner.next();
             } while (!answer.equals("yes") && !answer.equals("no"));
         } while (answer.equals("yes"));
