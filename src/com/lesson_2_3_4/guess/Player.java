@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Player {
 
-    private int counter;
+    private int countAttempts;
     private final int[] numbers = new int[10];
     private final String name;
 
@@ -16,16 +16,12 @@ public class Player {
         return name;
     }
 
-    public int getCounter() {
-        return counter;
+    public int getCountAttempts() {
+        return countAttempts;
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
-
-    public void getNumbers() {
-        int[] enteredNumbers = Arrays.copyOf(this.numbers, counter);
+    public void printNumbers() {
+        int[] enteredNumbers = Arrays.copyOf(this.numbers, countAttempts);
         System.out.print("Ответы игрока " + name + ": ");
         for (int num : enteredNumbers) {
             System.out.print(num == 0 ? "x " : num + " ");
@@ -33,19 +29,21 @@ public class Player {
         System.out.println();
     }
 
-    public int getNumber(int index) {
-        return numbers[index];
+    public int getNumber() {
+        return numbers[countAttempts - 1];
     }
 
-    public void setNumbers(int number, int index) {
+    public void setNumber(int number) {
+        countAttempts++;
         if (number <= 0 || number > 100) {
             System.out.println("Ошибка! Число должно быть в полуинтервале (0; 100]");
         } else {
-            numbers[index - 1] = number;
+            numbers[countAttempts - 1] = number;
         }
     }
 
-    public void numbersToZero() {
-        Arrays.fill(numbers, 0);
+    public void clear() {
+        Arrays.fill(numbers, 0, countAttempts, 0);
+        countAttempts = 0;
     }
 }

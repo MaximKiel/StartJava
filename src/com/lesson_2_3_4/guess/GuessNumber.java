@@ -1,18 +1,16 @@
 package com.lesson_2_3_4.guess;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
 
     Scanner scanner = new Scanner(System.in);
-    private final Player[] players = new Player[3];
-
+    private final Player[] players;
     private int targetNumber;
 
     public GuessNumber(Player[] players) {
-        this.players[0] = players[0];
-        this.players[1] = players[1];
-        this.players[2] = players[2];
+        this.players = Arrays.copyOf(players, players.length);
     }
 
     public void start() {
@@ -22,45 +20,45 @@ public class GuessNumber {
                 У каждого игрока есть по 10 попыток!""");
 
         for (Player player : players) {
-            player.setCounter(0);
-            player.numbersToZero();
+            player.clear();
         }
 
-        outer:
-        for (int i = 0; i < 10; i++) {
+        boolean stopping;
+        do {
+            stopping = true;
             for (Player player : players) {
-                player.setCounter(i + 1);
-                enterNumber(player, player.getCounter());
-                if (checkNumber(player, player.getNumber(i), player.getCounter())) {
-                    break outer;
+                enterNumber(player);
+                if (checkNumber(player)) {
+                    stopping = false;
+                    break;
                 }
-                if (player.getCounter() == 10) {
+                if (player.getCountAttempts() == 10) {
                     System.out.println("У " + player.getName() + " закончились попытки");
                 }
             }
-        }
+        } while (stopping);
 
         for (Player player : players) {
-            player.getNumbers();
+            player.printNumbers();
         }
     }
 
-    private void enterNumber(Player player, int counter) {
+    private void enterNumber(Player player) {
         System.out.print("Игрок " + player.getName() + " предлагает число: ");
-        player.setNumbers(scanner.nextInt(), counter);
+        player.setNumber(scanner.nextInt());
     }
 
-    private boolean checkNumber(Player player, int number, int counter) {
-        if (number == targetNumber) {
+    private boolean checkNumber(Player player) {
+        if (player.getNumber() == 0) {
+            return false;
+        } else if (player.getNumber() == targetNumber) {
             System.out.println("Игрок " + player.getName() + " угадал число " + targetNumber +
-                    " c " + counter + " попытки");
+                    " c " + player.getCountAttempts() + " попытки");
             return true;
-        }
-        if (number != 0) {
-            System.out.print("Число " + number + (number > targetNumber ? " больше" : " меньше")
-                    + " того, что загадал компьютер\n");
+        } else {
+            System.out.println("Число " + player.getNumber() + (player.getNumber() > targetNumber ? " больше" : " меньше")
+                    + " того, что загадал компьютер");
             return false;
         }
-        return false;
     }
 }

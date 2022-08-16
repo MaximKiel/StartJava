@@ -4,79 +4,78 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Selection {
-    private final Player playerOne;
-    private final Player playerTwo;
-    private final Player playerThree;
+
+    private final Player[] players;
 
     public Selection(Player[] players) {
-        this.playerOne = players[0];
-        this.playerTwo = players[1];
-        this.playerThree = players[2];
+        this.players = Arrays.copyOf(players, players.length);
     }
 
     public void draw(Player[] players) {
-        int[] playersArray = {1, 2, 3};
-        int[] round1 = Arrays.copyOf(playersArray, playersArray.length);
-        int[] round2 = Arrays.copyOf(playersArray, playersArray.length);
-        int[] round3 = Arrays.copyOf(playersArray, playersArray.length);
-        int[] playersArrayFinal = new int[playersArray.length];
+        int[] playersIndex = new int[players.length];
+
+        for (int i = 0; i < players.length; i++) {
+            playersIndex[i] = i + 1;
+        }
+
+        int[] round1 = Arrays.copyOf(playersIndex, playersIndex.length);
+        int[] round2 = Arrays.copyOf(playersIndex, playersIndex.length);
+        int[] round3 = Arrays.copyOf(playersIndex, playersIndex.length);
+        int[] playersIndexDraw = new int[players.length];
 
         do {
-            solution (round1);
-            solution (round2);
-            solution (round3);
+            solution(round1);
+            solution(round2);
+            solution(round3);
 
-            int index1 = 0;
-            int index2 = 0;
-
-            do {
-                do {
+            for (int i = 0; i < players.length; i++) {
+                for (int j = 0; j < players.length; j++) {
                     int counter = 0;
-                    if (playersArray[index1] == round1[index2]) {
+                    if (playersIndex[j] == round1[i]) {
                         counter++;
                     }
-                    if (playersArray[index1] == round2[index2]) {
+                    if (playersIndex[j] == round2[i]) {
                         counter++;
                     }
-                    if (playersArray[index1] == round3[index2]) {
+                    if (playersIndex[j] == round3[i]) {
                         counter++;
                     }
                     if (counter >= 2) {
-                        playersArrayFinal[index2] = playersArray[index1];
+                        System.arraycopy(playersIndex, j, playersIndexDraw, i, 1);
                         break;
                     }
-                    index1++;
-                } while (index1 < 3);
-                index1 = 0;
-                index2++;
-            } while (index2 < 3);
+                }
+            }
 
-            if (playersArrayFinal[0] == 0 || playersArrayFinal[1] == 0 || playersArrayFinal[2] == 0) {
+            if (playersIndexDraw[0] == 0 || playersIndexDraw[1] == 0 || playersIndexDraw[2] == 0) {
                 System.out.println("Ничья! Результаты жеребьевки за три раунда: ");
                 printArray(round1);
                 printArray(round2);
                 printArray(round3);
                 System.out.println("Повторная жеребьевка...");
             } else {
-                System.out.println("Результаты жеребьевки: " + "\nПервым ходит игрок " + playerOne.getName()
-                        + "\nВторым ходит игрок " + playerTwo.getName()
-                        + "\nТретьим ходит игрок " + playerThree.getName());
+                System.out.print("Результаты жеребьевки:\n");
+                for (int i = 0; i < players.length; i++) {
+                    System.out.println((i + 1) + " ходит игрок " + players[playersIndexDraw[i] - 1].getName());
+                }
                 break;
             }
         } while (true);
 
+        Player[] tmpArr = Arrays.copyOf(players, players.length);
+
         for (int i = 0; i < 3; i++) {
-            if (playersArrayFinal[i] == 1) {
-                players[i] = playerOne;
-            } else if (playersArrayFinal[i] == 2) {
-                players[i] = playerTwo;
-            } else if (playersArrayFinal[i] == 3) {
-                players[i] = playerThree;
+            if (playersIndexDraw[i] == 1) {
+                players[i] = tmpArr[0];
+            } else if (playersIndexDraw[i] == 2) {
+                players[i] = tmpArr[1];
+            } else if (playersIndexDraw[i] == 3) {
+                players[i] = tmpArr[2];
             }
         }
     }
 
-    private void solution (int[] array) {
+    private void solution(int[] array) {
         Random random = new Random();
         for (int i = array.length - 1; i > 0; i--) {
             int index = random.nextInt(i + 1);
@@ -89,11 +88,11 @@ public class Selection {
     private void printArray(int[] array) {
         for (int i = 0; i < 3; i++) {
             if (array[i] == 1) {
-                System.out.print(playerOne.getName() + " ");
+                System.out.print(players[0].getName() + " ");
             } else if (array[i] == 2) {
-                System.out.print(playerTwo.getName() + " ");
+                System.out.print(players[1].getName() + " ");
             } else if (array[i] == 3) {
-                System.out.print(playerThree.getName() + " ");
+                System.out.print(players[2].getName() + " ");
             }
         }
         System.out.println();
