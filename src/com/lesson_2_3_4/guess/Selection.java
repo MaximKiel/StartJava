@@ -24,6 +24,7 @@ public class Selection {
         int[] playersIndexDraw = new int[players.length];
 
         do {
+            Arrays.fill(playersIndexDraw, 0);
             solution(round1);
             solution(round2);
             solution(round3);
