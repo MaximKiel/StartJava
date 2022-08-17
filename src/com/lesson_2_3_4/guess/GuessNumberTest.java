@@ -7,6 +7,7 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Player[] players = createPlayers();
+
         GuessNumber game = new GuessNumber(players);
         String answer = "yes";
 
@@ -22,9 +23,9 @@ public class GuessNumberTest {
     }
 
     private static Player[] createPlayers() {
+        Scanner scanner = new Scanner(System.in);
         Player[] players = new Player[3];
-        for (int i = 0; i < 3; i++) {
-            Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < players.length; i++) {
             System.out.print("Введите имя " + (i + 1) + " игрока: ");
             players[i] = new Player(scanner.next());
         }

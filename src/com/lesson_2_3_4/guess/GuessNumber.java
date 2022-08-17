@@ -9,6 +9,7 @@ public class GuessNumber {
     Scanner scanner = new Scanner(System.in);
     private final Player[] players;
     private int targetNumber;
+
     public GuessNumber(Player[] players) {
         this.players = Arrays.copyOf(players, players.length);
     }
@@ -26,23 +27,24 @@ public class GuessNumber {
             player.clear();
         }
 
-        boolean isLoopStop;
-        int loopCounter = 0;
+        boolean guessed;
+        int counter = 0;
         do {
-            isLoopStop = false;
-            loopCounter++;
+            guessed = false;
+            counter++;
             for (Player player : players) {
                 if (enterNumber(player)) {
                     if (checkNumber(player)) {
-                        isLoopStop = true;
+                        guessed = true;
                         break;
                     }
                 }
-                if (player.getCountAttempts() == 10) System.out.println("У " + player.getName() + " закончились попытки");
+                if (player.getCountAttempts() == 10) System.out.println("У " + player.getName()
+                        + " закончились попытки");
             }
-        } while (!isLoopStop && loopCounter < 10);
+        } while (!guessed && counter < 10);
 
-        if (loopCounter == 10) System.out.println("Игра завершена! У игроков закончились попытки!");
+        if (counter == 10) System.out.println("Игра завершена! У игроков закончились попытки!");
 
         for (Player player : players) {
             printNumbers(player);
@@ -68,15 +70,14 @@ public class GuessNumber {
                     " c " + player.getCountAttempts() + " попытки");
             return true;
         }
-        System.out.println("Число " + player.getNumber() + (player.getNumber() > targetNumber ? " больше" : " меньше")
-                + " того, что загадал компьютер");
-            return false;
+        System.out.println("Число " + player.getNumber() + (player.getNumber() > targetNumber
+                ? " больше" : " меньше") + " того, что загадал компьютер");
+        return false;
     }
 
-    public void printNumbers(Player player) {
-        int[] enteredNumbers = Arrays.copyOf(player.getNumbers(), player.getCountAttempts());
+    private void printNumbers(Player player) {
         System.out.print("Ответы игрока " + player.getName() + ": ");
-        for (int num : enteredNumbers) {
+        for (int num : player.getNumbers()) {
             System.out.print(num == 0 ? "x " : num + " ");
         }
         System.out.println();
