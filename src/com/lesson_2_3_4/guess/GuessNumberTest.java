@@ -7,18 +7,16 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Player[] players = createPlayers();
-        Selection selection = new Selection(players);
-        String answer;
+        GuessNumber game = new GuessNumber(players);
+        String answer = "yes";
 
         do {
-            selection.draw(players);
-            GuessNumber game = new GuessNumber(players);
-            game.start();
-            do {
-                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-                answer = scanner.next();
-            } while (!answer.equals("yes") && !answer.equals("no"));
-        } while (answer.equals("yes"));
+            if (answer.equals("yes")) {
+                game.start();
+            }
+            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+            answer = scanner.next();
+        } while (!answer.equals("no"));
 
         System.out.println("Конец игры! До свидания!");
     }

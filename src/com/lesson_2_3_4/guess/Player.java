@@ -20,13 +20,8 @@ public class Player {
         return countAttempts;
     }
 
-    public void printNumbers() {
-        int[] enteredNumbers = Arrays.copyOf(this.numbers, countAttempts);
-        System.out.print("Ответы игрока " + name + ": ");
-        for (int num : enteredNumbers) {
-            System.out.print(num == 0 ? "x " : num + " ");
-        }
-        System.out.println();
+    public int[] getNumbers() {
+        return numbers;
     }
 
     public int getNumber() {
@@ -36,7 +31,7 @@ public class Player {
     public void setNumber(int number) {
         countAttempts++;
         if (number <= 0 || number > 100) {
-            System.out.println("Ошибка! Число должно быть в полуинтервале (0; 100]");
+            System.out.println("Число должно быть в полуинтервале (0; 100]");
         } else {
             numbers[countAttempts - 1] = number;
         }
