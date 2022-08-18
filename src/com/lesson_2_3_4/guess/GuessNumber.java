@@ -6,7 +6,6 @@ public class GuessNumber {
 
     Scanner scanner = new Scanner(System.in);
     private final Player[] players;
-    private Player[] winners;
     private int targetNumber;
     private static final int ATTEMPTS_NUMBER = 10;
     private static final int ROUNDS_NUMBER = 3;
@@ -17,7 +16,10 @@ public class GuessNumber {
 
     public void start() {
         castLots();
-        winners = new Player[players.length];
+
+        for (Player player : players) {
+            player.clearWin();
+        }
 
         System.out.println("\nНачинаем игру!");
 
@@ -25,7 +27,6 @@ public class GuessNumber {
             System.out.println("\nРаунд " + (i + 1));
 
             targetNumber = (int) (Math.random() * 100) + 1;
-
             System.out.println("""
                     Компьютер загадал число от 0 до 100! Теперь попробуйте угадать его!
                     У каждого игрока есть по 10 попыток!""");
@@ -41,7 +42,7 @@ public class GuessNumber {
                     if (enterNumber(player)) {
                         if (checkNumber(player)) {
                             System.out.println("В " + (i + 1) + " раунде победил " + player.getName());
-                            winners[i] = player;
+                            player.setWinCounter();
                             guessed = true;
                             break;
                         }
@@ -62,7 +63,7 @@ public class GuessNumber {
                 printNumbers(player);
             }
         }
-        setWinner();
+        determineWinner();
     }
 
     private void castLots() {
@@ -115,28 +116,35 @@ public class GuessNumber {
         System.out.println();
     }
 
-    private void setWinner() {
-        int[] winCounter = new int[winners.length];
-        Arrays.fill(winCounter, 0);
+    private void determineWinner() {
+        Player winner = null;
 
-        for (int i = 0; i < winners.length; i++) {
-            for (Player winner : winners) {
-                if (winners[i] == winner && winners[i] != null) {
-                    winCounter[i]++;
+        for (Player player1 : players) {
+            if (player1.getWinCounter() >= (ROUNDS_NUMBER - 1)) {
+                winner = player1;
+                break;
+            }
+            for (Player player2 : players) {
+                if (player1.getWinCounter() == player2.getWinCounter()) {
+                    break;
+                }
+                if (player1.getWinCounter() > player2.getWinCounter()) {
+                    winner = player1;
+                    break;
                 }
             }
         }
 
-        for (int i = 0; i < winCounter.length; i++) {
-            if (winCounter[i] >= 2 && winners[i] != null) {
-                System.out.println("\nИгрок " + winners[i].getName() + " победил!");
-                return;
-            }
+        if (winner != null) {
+            System.out.println("\nИгрок " + winner.getName() + " победил!");
+            return;
         }
 
         System.out.print("\nНичья! Победители раундов: ");
-        for (Player winner : winners) {
-            if (winner != null) System.out.print(winner.getName() + " ");
+        for (Player player : players) {
+            if (player.getWinCounter() != 0) {
+                System.out.print(player.getName() + " ");
+            }
         }
         System.out.println();
     }

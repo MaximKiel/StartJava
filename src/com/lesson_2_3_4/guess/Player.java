@@ -7,6 +7,7 @@ public class Player {
     private int countAttempts;
     private final int[] numbers = new int[10];
     private final String name;
+    private int winCounter = 0;
 
     public Player(String name) {
         this.name = name;
@@ -40,5 +41,17 @@ public class Player {
     public void clear() {
         Arrays.fill(numbers, 0, countAttempts, 0);
         countAttempts = 0;
+    }
+
+    public void clearWin() {
+        winCounter = 0;
+    }
+
+    public int getWinCounter() {
+        return winCounter;
+    }
+
+    public void setWinCounter() {
+        winCounter++;
     }
 }
