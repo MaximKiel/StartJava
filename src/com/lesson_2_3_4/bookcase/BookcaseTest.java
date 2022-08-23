@@ -18,30 +18,63 @@ public class BookcaseTest {
 
         Bookcase bookcase = new Bookcase(books);
 
-        do {
-            printBookcase(bookcase.getBookcase());
-            printMenu();
-            answer = sc.nextLine();
-            switch (answer) {
-                case "1" -> {
-                    System.out.println("Введите данные книги через слэш: ");
-                    bookcase.addBook(sc.nextLine());
+            do {
+                try {
+                    printBookcase(bookcase.getBookcase());
+                    printMenu();
+                    answer = sc.nextLine();
+                    switch (answer) {
+                        case "1" -> {
+                            System.out.println("Введите данные книги через слэш: ");
+                            bookcase.addBook(sc.nextLine());
+                        }
+                        case "2" -> {
+                            System.out.println("Введите название книги, которую нужно удалить: ");
+                            if (bookcase.deleteBook(sc.nextLine())) System.out.println("Книга удалена!");
+                            else System.out.println("Такой книги нет на полке!");
+                        }
+                        case "3" -> {
+                            System.out.println("Введите название книги, которую нужно найти: ");
+                            printBookInfo(bookcase.findBook(sc.nextLine()));
+                        }
+                        case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
+                        case "5" -> System.out.println("Число свободных мест на полке: "
+                                + bookcase.getFreePlace(BOOKCASE_VALUE));
+                        case "6" -> printBookcase(bookcase.getBookcase());
+                        case "7" -> bookcase.clear();
+                        case "8" -> System.exit(0);
+                    }
+                } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
+                    System.out.println("Ошибка ввода!");
                 }
-                case "2" -> {
-                    System.out.println("Введите название книги, которую нужно удалить: ");
-                    bookcase.deleteBook(sc.nextLine());
-                }
-                case "3" -> {
-                    System.out.println("Введите название книги, которую нужно найти: ");
-                    printBookInfo(bookcase.findBook(sc.nextLine()));
-                }
-                case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
-                case "5" -> System.out.println("Число свободных мест: " + bookcase.getFreePlace(BOOKCASE_VALUE));
-                case "6" -> printBookcase(bookcase.getBookcase());
-                case "7" -> bookcase.clear();
-                case "8" -> System.exit(0);
+            } while (true);
+    }
+
+    private static void printBookcase(Book[] books) {
+        for (Book book : books) {
+            printBookInfo(book);
+        }
+        for (int i = 0; i < BOOKCASE_VALUE - books.length; i++) {
+            System.out.printf("%-60s", "| ");
+            System.out.println("|");
+            for (int j = 0; j <= 60; j++) {
+                System.out.print("-");
             }
-        } while (true);
+            System.out.println();
+        }
+    }
+
+    private static void printBookInfo(Book book) {
+        if (book != null) {
+            System.out.printf("%-60s", "|" + book);
+            System.out.println("|");
+            for (int i = 0; i <= 60; i++) {
+                System.out.print("-");
+            }
+            System.out.println();
+        } else {
+            System.out.println("Такой книги нет на полке!");
+        }
     }
 
     private static void printMenu() {
@@ -59,28 +92,5 @@ public class BookcaseTest {
                 
                 Введите номер действия из меню:
                 """);
-    }
-
-    private static void printBookInfo(Book book) {
-        System.out.printf("%-60s", "|" + book.toString());
-        System.out.println("|");
-        for (int i = 0; i <= 60; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
-    }
-
-    private static void printBookcase(Book[] books) {
-        for (Book book : books) {
-            printBookInfo(book);
-        }
-        for (int i = 0; i < BOOKCASE_VALUE - books.length; i++) {
-            System.out.printf("%-60s", "| ");
-            System.out.println("|");
-            for (int j = 0; j <= 60; j++) {
-                System.out.print("-");
-            }
-            System.out.println();
-        }
     }
 }

@@ -20,20 +20,21 @@ public class Bookcase {
         bookCounter++;
     }
 
-    public void deleteBook(String title) {
+    public boolean deleteBook(String title) {
         for (int i = 0; i < books.length; i++) {
             if (title.equals(books[i].getTitle())) {
                 System.arraycopy(books, i + 1, books, i, books.length - (i + 1));
                 bookCounter--;
+                return true;
             }
         }
-        System.out.println("Книга удалена!");
+        return false;
     }
 
     public Book findBook(String title) {
-        System.out.println("Книга, которую вы искали: ");
         for (Book book : books) {
             if (title.equals(book.getTitle())) {
+                System.out.println("Книга, которую вы искали: ");
                 return book;
             }
         }
@@ -56,5 +57,6 @@ public class Bookcase {
 
     public void clear() {
         bookCounter = 0;
+        System.out.println("Полка очищена!");
     }
 }
