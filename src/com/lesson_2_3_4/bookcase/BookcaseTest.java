@@ -4,12 +4,14 @@ import java.util.Scanner;
 
 public class BookcaseTest {
 
+    static final int BOOKCASE_VALUE = 10;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        final int bookcaseValue = 10;
         String answer;
 
-        Book[] books = new Book[bookcaseValue];
+        Book[] books = new Book[BOOKCASE_VALUE];
+
         for (int i = 0; i < books.length; i++) {
             if (books[i] == null) books[i] = new Book();
         }
@@ -17,12 +19,12 @@ public class BookcaseTest {
         Bookcase bookcase = new Bookcase(books);
 
         do {
+            printBookcase(bookcase.getBookcase());
             printMenu();
-
             answer = sc.nextLine();
             switch (answer) {
                 case "1" -> {
-                    System.out.println("Введите данные книги через точку с запятой: ");
+                    System.out.println("Введите данные книги через слэш: ");
                     bookcase.addBook(sc.nextLine());
                 }
                 case "2" -> {
@@ -31,21 +33,14 @@ public class BookcaseTest {
                 }
                 case "3" -> {
                     System.out.println("Введите название книги, которую нужно найти: ");
-                    printInfo(bookcase.findBook(sc.nextLine()));
-
+                    printBookInfo(bookcase.findBook(sc.nextLine()));
                 }
                 case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
-                case "5" -> System.out.println("Число свободных мест на полке: " + bookcase.getFreePlace(books.length));
-                case "6" -> {
-                    Book[] books1 = bookcase.getBookcase();
-                    for (int i = 0; i < books1.length; i++) {
-                        printInfo(books1[i]);
-                    }
-                }
+                case "5" -> System.out.println("Число свободных мест: " + bookcase.getFreePlace(BOOKCASE_VALUE));
+                case "6" -> printBookcase(bookcase.getBookcase());
                 case "7" -> bookcase.clear();
                 case "8" -> System.exit(0);
             }
-            bookcase.getBookcase();
         } while (true);
     }
 
@@ -53,7 +48,7 @@ public class BookcaseTest {
         System.out.print("""
                 
                 Меню пользователя:
-                1. Сохранить новую книгу <Фамилия Имя> <Название> <Год публикации>
+                1. Сохранить новую книгу <Фамилия Имя / Название / Год публикации>
                 2. Удалить книгу <Название>
                 3. Найти книгу <Название>
                 4. Получить количество всех книг на полке
@@ -66,12 +61,26 @@ public class BookcaseTest {
                 """);
     }
 
-    private static void printInfo(Book book) {
+    private static void printBookInfo(Book book) {
         System.out.printf("%-60s", "|" + book.toString());
         System.out.println("|");
         for (int i = 0; i <= 60; i++) {
             System.out.print("-");
         }
         System.out.println();
+    }
+
+    private static void printBookcase(Book[] books) {
+        for (Book book : books) {
+            printBookInfo(book);
+        }
+        for (int i = 0; i < BOOKCASE_VALUE - books.length; i++) {
+            System.out.printf("%-60s", "| ");
+            System.out.println("|");
+            for (int j = 0; j <= 60; j++) {
+                System.out.print("-");
+            }
+            System.out.println();
+        }
     }
 }

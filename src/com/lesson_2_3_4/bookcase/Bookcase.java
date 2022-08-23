@@ -13,7 +13,7 @@ public class Bookcase {
     }
 
     public void addBook(String info) {
-        String[] infoArray = info.split("; ");
+        String[] infoArray = info.split(" / ");
         books[bookCounter].setAuthor(infoArray[0]);
         books[bookCounter].setTitle(infoArray[1]);
         books[bookCounter].setPublicationYear(Integer.parseInt(infoArray[2]));
