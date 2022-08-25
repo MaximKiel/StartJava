@@ -1,29 +1,30 @@
 package com.lesson_2_3_4.bookcase;
 
-import java.util.Arrays;
-
 public class Bookcase {
-
-    private int bookCounter;
 
     private final Book[] books;
 
-    public Bookcase(Book[] books) {
-        this.books = Arrays.copyOf(books, books.length);
+    private int bookCounter;
+
+    public Bookcase(int length) {
+        this.books = new Book[length];
     }
 
     public void addBook(String info) {
-        String[] infoArray = info.split(" / ");
-        books[bookCounter].setAuthor(infoArray[0]);
-        books[bookCounter].setTitle(infoArray[1]);
-        books[bookCounter].setPublicationYear(Integer.parseInt(infoArray[2]));
-        bookCounter++;
+        if (bookCounter < 10 ) {
+            books[bookCounter] = new Book();
+            String[] infoArray = info.split(" / ");
+            books[bookCounter].setAuthor(infoArray[0]);
+            books[bookCounter].setTitle(infoArray[1]);
+            books[bookCounter].setPublicationYear(Integer.parseInt(infoArray[2]));
+            bookCounter++;
+        } else System.out.println("На полке нет места!");
     }
 
     public boolean deleteBook(String title) {
-        for (int i = 0; i < books.length; i++) {
+        for (int i = 0; i < bookCounter; i++) {
             if (title.equals(books[i].getTitle())) {
-                System.arraycopy(books, i + 1, books, i, books.length - (i + 1));
+                System.arraycopy(books, i + 1, books, i, bookCounter - (i + 1));
                 bookCounter--;
                 return true;
             }
@@ -45,17 +46,20 @@ public class Bookcase {
         return bookCounter;
     }
 
-    public int getFreePlace(int length) {
-        return length - bookCounter;
+    public int getFreePlace() {
+        return books.length - bookCounter;
     }
 
-    public Book[] getBookcase() {
+    public Book[] getBooks() {
         Book[] booksNotNull = new Book[bookCounter];
         System.arraycopy(books, 0, booksNotNull, 0, bookCounter);
         return booksNotNull;
     }
 
     public void clear() {
+        for (int i = 0; i < bookCounter; i++) {
+            books[i] = null;
+        }
         bookCounter = 0;
         System.out.println("Полка очищена!");
     }

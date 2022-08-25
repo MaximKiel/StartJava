@@ -8,46 +8,41 @@ public class BookcaseTest {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String answer;
 
-        Book[] books = new Book[BOOKCASE_VALUE];
+        Bookcase bookcase = new Bookcase(BOOKCASE_VALUE);
 
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] == null) books[i] = new Book();
-        }
-
-        Bookcase bookcase = new Bookcase(books);
-
-            do {
-                try {
-                    printBookcase(bookcase.getBookcase());
-                    printMenu();
-                    answer = sc.nextLine();
-                    switch (answer) {
-                        case "1" -> {
-                            System.out.println("Введите данные книги через слэш: ");
-                            bookcase.addBook(sc.nextLine());
-                        }
-                        case "2" -> {
-                            System.out.println("Введите название книги, которую нужно удалить: ");
-                            if (bookcase.deleteBook(sc.nextLine())) System.out.println("Книга удалена!");
-                            else System.out.println("Такой книги нет на полке!");
-                        }
-                        case "3" -> {
-                            System.out.println("Введите название книги, которую нужно найти: ");
-                            printBookInfo(bookcase.findBook(sc.nextLine()));
-                        }
-                        case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
-                        case "5" -> System.out.println("Число свободных мест на полке: "
-                                + bookcase.getFreePlace(BOOKCASE_VALUE));
-                        case "6" -> printBookcase(bookcase.getBookcase());
-                        case "7" -> bookcase.clear();
-                        case "8" -> System.exit(0);
+        do {
+            try {
+                printBookcase(bookcase.getBooks());
+                printMenu();
+                String menuItem = sc.nextLine();
+                switch (menuItem) {
+                    case "1" -> {
+                        System.out.println("Введите данные книги через слэш: ");
+                        bookcase.addBook(sc.nextLine());
                     }
-                } catch (ArrayIndexOutOfBoundsException | NullPointerException | NumberFormatException e) {
-                    System.out.println("Ошибка ввода!");
+                    case "2" -> {
+                        System.out.println("Введите название книги, которую нужно удалить: ");
+                        if (bookcase.deleteBook(sc.nextLine())) System.out.println("Книга удалена!");
+                        else System.out.println("Такой книги нет на полке!");
+                    }
+                    case "3" -> {
+                        System.out.println("Введите название книги, которую нужно найти: ");
+                        printBookInfo(bookcase.findBook(sc.nextLine()));
+                    }
+                    case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
+                    case "5" -> System.out.println("Число свободных мест на полке: "
+                            + bookcase.getFreePlace());
+                    case "6" -> printBookcase(bookcase.getBooks());
+                    case "7" -> bookcase.clear();
+                    case "8" -> {
+                        return;
+                    }
                 }
-            } while (true);
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка ввода!");
+            }
+        } while (true);
     }
 
     private static void printBookcase(Book[] books) {

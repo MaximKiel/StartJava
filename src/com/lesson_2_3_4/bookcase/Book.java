@@ -6,8 +6,6 @@ public class Book {
     private String title;
     private int publicationYear;
 
-    public Book() {}
-
     public void setAuthor(String author) {
         this.author = author;
     }
