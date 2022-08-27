@@ -4,38 +4,37 @@ import java.util.Scanner;
 
 public class BookcaseTest {
 
-    static final int BOOKCASE_VALUE = 10;
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in, "cp866");
 
-        Bookcase bookcase = new Bookcase(BOOKCASE_VALUE);
+        Bookcase bookcase = new Bookcase();
 
         do {
             try {
-                printBookcase(bookcase.getBooks());
+                printBookcase(bookcase.getBooks(), bookcase.getBookCounter());
                 printMenu();
                 String menuItem = sc.nextLine();
                 switch (menuItem) {
                     case "1" -> {
-                        System.out.println("Введите данные книги через слэш: ");
-                        bookcase.addBook(sc.nextLine());
+                        System.out.print("Введите данные книги через слэш: ");
+                        Book book = new Book();
+                        bookcase.addBook(book, sc.nextLine());
                     }
                     case "2" -> {
-                        System.out.println("Введите название книги, которую нужно удалить: ");
+                        System.out.print("Введите название книги, которую нужно удалить: ");
                         if (bookcase.deleteBook(sc.nextLine())) System.out.println("Книга удалена!");
                         else System.out.println("Такой книги нет на полке!");
                     }
                     case "3" -> {
-                        System.out.println("Введите название книги, которую нужно найти: ");
+                        System.out.print("Введите название книги, которую нужно найти: ");
                         printBookInfo(bookcase.findBook(sc.nextLine()));
+                        System.out.println();
                     }
                     case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
                     case "5" -> System.out.println("Число свободных мест на полке: "
                             + bookcase.getFreePlace());
-                    case "6" -> printBookcase(bookcase.getBooks());
-                    case "7" -> bookcase.clear();
-                    case "8" -> {
+                    case "6" -> bookcase.clear();
+                    case "7" -> {
                         return;
                     }
                 }
@@ -45,30 +44,31 @@ public class BookcaseTest {
         } while (true);
     }
 
-    private static void printBookcase(Book[] books) {
-        for (Book book : books) {
-            printBookInfo(book);
-        }
-        for (int i = 0; i < BOOKCASE_VALUE - books.length; i++) {
-            System.out.printf("%-60s", "| ");
-            System.out.println("|");
-            for (int j = 0; j <= 60; j++) {
-                System.out.print("-");
-            }
-            System.out.println();
-        }
-    }
+    private static void printBookcase(Book[] books, int bookCounter) {
+        int shelfWidth = 2;
 
-    private static void printBookInfo(Book book) {
-        if (book != null) {
-            System.out.printf("%-60s", "|" + book);
-            System.out.println("|");
-            for (int i = 0; i <= 60; i++) {
-                System.out.print("-");
+        for (int i = 0; i < bookCounter; i++) {
+            for (int j = 0; j < bookCounter; j++) {
+                if (books[i].getLength() > shelfWidth) {
+                    shelfWidth = books[i].getLength();
+                }
+                if (books[i].getLength() > books[j].getLength() && books[i].getLength() > shelfWidth) {
+                    shelfWidth = books[i].getLength();
+                }
             }
-            System.out.println();
-        } else {
-            System.out.println("Такой книги нет на полке!");
+        }
+
+        for (Book book : books) {
+            if (book != null) {
+                System.out.print("|" + book);
+                System.out.println(" ".repeat(shelfWidth - book.getLength()) + "|");
+                System.out.println("-".repeat(shelfWidth));
+            }
+        }
+        
+        for (int i = 0; i < books.length - bookCounter; i++) {
+            System.out.println("|" + " ".repeat(shelfWidth - 2) + "|");
+            System.out.println("-".repeat(shelfWidth));
         }
     }
 
@@ -81,11 +81,18 @@ public class BookcaseTest {
                 3. Найти книгу <Название>
                 4. Получить количество всех книг на полке
                 5. Получить количество свободных мест на полке
-                6. Получить все книги
-                7. Очистить книжную полку
-                8. Завершить
+                6. Очистить книжную полку
+                7. Завершить
                 
-                Введите номер действия из меню:
-                """);
+                Введите номер действия из меню:\040""");
+    }
+
+    private static void printBookInfo(Book book) {
+        if (book != null) {
+            System.out.println("|" + book + "|");
+            System.out.println("-".repeat(book.getLength()));
+        } else {
+            System.out.println("Такой книги нет на полке!");
+        }
     }
 }

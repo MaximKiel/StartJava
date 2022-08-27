@@ -1,23 +1,23 @@
 package com.lesson_2_3_4.bookcase;
 
+import java.util.Arrays;
+
 public class Bookcase {
 
+    static final int SHELVES_QUANTITY = 10;
     private final Book[] books;
-
     private int bookCounter;
 
-    public Bookcase(int length) {
-        this.books = new Book[length];
+    public Bookcase() {
+        this.books = new Book[SHELVES_QUANTITY];
     }
 
-    public void addBook(String info) {
-        if (bookCounter < 10 ) {
-            books[bookCounter] = new Book();
-            String[] infoArray = info.split(" / ");
-            books[bookCounter].setAuthor(infoArray[0]);
-            books[bookCounter].setTitle(infoArray[1]);
-            books[bookCounter].setPublicationYear(Integer.parseInt(infoArray[2]));
-            bookCounter++;
+    public void addBook(Book book, String info) {
+        if (bookCounter < books.length) {
+            if (book.setInfo(info)) {
+                books[bookCounter] = book;
+                bookCounter++;
+            } else System.out.println("Некорректные данные!");
         } else System.out.println("На полке нет места!");
     }
 
@@ -25,6 +25,7 @@ public class Bookcase {
         for (int i = 0; i < bookCounter; i++) {
             if (title.equals(books[i].getTitle())) {
                 System.arraycopy(books, i + 1, books, i, bookCounter - (i + 1));
+                books[bookCounter - 1] = null;
                 bookCounter--;
                 return true;
             }
@@ -33,10 +34,10 @@ public class Bookcase {
     }
 
     public Book findBook(String title) {
-        for (Book book : books) {
-            if (title.equals(book.getTitle())) {
+        for (int i = 0; i < bookCounter; i++) {
+            if (title.equals(books[i].getTitle())) {
                 System.out.println("Книга, которую вы искали: ");
-                return book;
+                return books[i];
             }
         }
         return null;
@@ -51,15 +52,11 @@ public class Bookcase {
     }
 
     public Book[] getBooks() {
-        Book[] booksNotNull = new Book[bookCounter];
-        System.arraycopy(books, 0, booksNotNull, 0, bookCounter);
-        return booksNotNull;
+        return Arrays.copyOf(books, books.length);
     }
 
     public void clear() {
-        for (int i = 0; i < bookCounter; i++) {
-            books[i] = null;
-        }
+        Arrays.fill(books,null);
         bookCounter = 0;
         System.out.println("Полка очищена!");
     }
