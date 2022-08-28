@@ -4,29 +4,29 @@ import java.util.Arrays;
 
 public class Bookcase {
 
-    static final int SHELVES_QUANTITY = 10;
+    private static final int SHELVES_QUANTITY = 10;
     private final Book[] books;
-    private int bookCounter;
+    private int countBooks;
 
     public Bookcase() {
-        this.books = new Book[SHELVES_QUANTITY];
+        books = new Book[SHELVES_QUANTITY];
     }
 
-    public void addBook(Book book, String info) {
-        if (bookCounter < books.length) {
-            if (book.setInfo(info)) {
-                books[bookCounter] = book;
-                bookCounter++;
-            } else System.out.println("Некорректные данные!");
+    public void addBook(Book book) {
+        if (countBooks < books.length) {
+            if (book.getTitle() != null) {
+                books[countBooks] = book;
+                countBooks++;
+            }
         } else System.out.println("На полке нет места!");
     }
 
     public boolean deleteBook(String title) {
-        for (int i = 0; i < bookCounter; i++) {
+        for (int i = 0; i < countBooks; i++) {
             if (title.equals(books[i].getTitle())) {
-                System.arraycopy(books, i + 1, books, i, bookCounter - (i + 1));
-                books[bookCounter - 1] = null;
-                bookCounter--;
+                System.arraycopy(books, i + 1, books, i, countBooks - (i + 1));
+                books[countBooks - 1] = null;
+                countBooks--;
                 return true;
             }
         }
@@ -34,21 +34,20 @@ public class Bookcase {
     }
 
     public Book findBook(String title) {
-        for (int i = 0; i < bookCounter; i++) {
+        for (int i = 0; i < countBooks; i++) {
             if (title.equals(books[i].getTitle())) {
-                System.out.println("Книга, которую вы искали: ");
                 return books[i];
             }
         }
         return null;
     }
 
-    public int getBookCounter() {
-        return bookCounter;
+    public int getCountBooks() {
+        return countBooks;
     }
 
     public int getFreePlace() {
-        return books.length - bookCounter;
+        return books.length - countBooks;
     }
 
     public Book[] getBooks() {
@@ -56,8 +55,8 @@ public class Bookcase {
     }
 
     public void clear() {
-        Arrays.fill(books,null);
-        bookCounter = 0;
+        Arrays.fill(books, 0, countBooks, null);
+        countBooks = 0;
         System.out.println("Полка очищена!");
     }
 }

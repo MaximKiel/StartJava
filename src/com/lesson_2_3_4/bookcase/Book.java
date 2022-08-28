@@ -2,20 +2,23 @@ package com.lesson_2_3_4.bookcase;
 
 public class Book {
 
-    private int length;
+    private final int length;
     private String author;
     private String title;
     private int publicationYear;
 
-    public boolean setInfo(String info) {
-        this.length = info.length();
+    public Book(String info) {
+        length = info.length();
         String[] infoArray = info.split(" / ");
         if (infoArray.length == 3) {
-            this.author = infoArray[0];
-            this.title = infoArray[1];
-            this.publicationYear = Integer.parseInt(infoArray[2]);
-            return true;
-        } else return false;
+            author = infoArray[0];
+            title = infoArray[1];
+            publicationYear = Integer.parseInt(infoArray[2]);
+        } else System.out.println("Некорректные данные!");
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public String getTitle() {
@@ -24,9 +27,5 @@ public class Book {
 
     public String toString() {
         return author + ", " + title + ", " + publicationYear;
-    }
-
-    public int getLength() {
-        return length;
     }
 }

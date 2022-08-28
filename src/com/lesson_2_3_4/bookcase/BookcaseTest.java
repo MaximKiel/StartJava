@@ -11,14 +11,14 @@ public class BookcaseTest {
 
         do {
             try {
-                printBookcase(bookcase.getBooks(), bookcase.getBookCounter());
+                printBookcase(bookcase.getBooks(), bookcase.getCountBooks());
                 printMenu();
                 String menuItem = sc.nextLine();
                 switch (menuItem) {
                     case "1" -> {
                         System.out.print("Введите данные книги через слэш: ");
-                        Book book = new Book();
-                        bookcase.addBook(book, sc.nextLine());
+                        Book book = new Book(sc.nextLine());
+                        bookcase.addBook(book);
                     }
                     case "2" -> {
                         System.out.print("Введите название книги, которую нужно удалить: ");
@@ -28,9 +28,8 @@ public class BookcaseTest {
                     case "3" -> {
                         System.out.print("Введите название книги, которую нужно найти: ");
                         printBookInfo(bookcase.findBook(sc.nextLine()));
-                        System.out.println();
                     }
-                    case "4" -> System.out.println("Число книг на полке: " + bookcase.getBookCounter());
+                    case "4" -> System.out.println("Число книг на полке: " + bookcase.getCountBooks());
                     case "5" -> System.out.println("Число свободных мест на полке: "
                             + bookcase.getFreePlace());
                     case "6" -> bookcase.clear();
@@ -44,11 +43,11 @@ public class BookcaseTest {
         } while (true);
     }
 
-    private static void printBookcase(Book[] books, int bookCounter) {
+    private static void printBookcase(Book[] books, int countBooks) {
         int shelfWidth = 2;
 
-        for (int i = 0; i < bookCounter; i++) {
-            for (int j = 0; j < bookCounter; j++) {
+        for (int i = 0; i < countBooks; i++) {
+            for (int j = 0; j < countBooks; j++) {
                 if (books[i].getLength() > shelfWidth) {
                     shelfWidth = books[i].getLength();
                 }
@@ -66,7 +65,7 @@ public class BookcaseTest {
             }
         }
         
-        for (int i = 0; i < books.length - bookCounter; i++) {
+        for (int i = 0; i < books.length - countBooks; i++) {
             System.out.println("|" + " ".repeat(shelfWidth - 2) + "|");
             System.out.println("-".repeat(shelfWidth));
         }
@@ -89,6 +88,7 @@ public class BookcaseTest {
 
     private static void printBookInfo(Book book) {
         if (book != null) {
+            System.out.println("Книга, которую вы искали: ");
             System.out.println("|" + book + "|");
             System.out.println("-".repeat(book.getLength()));
         } else {
