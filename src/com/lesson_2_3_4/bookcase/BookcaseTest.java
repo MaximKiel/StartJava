@@ -4,14 +4,15 @@ import java.util.Scanner;
 
 public class BookcaseTest {
 
+    private static int shelfWidth = 10;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in, "cp866");
-
         Bookcase bookcase = new Bookcase();
 
         do {
             try {
-                printBookcase(bookcase.getBooks(), bookcase.getCountBooks());
+                printBookcase(bookcase.getBooks());
                 printMenu();
                 String menuItem = sc.nextLine();
                 switch (menuItem) {
@@ -43,31 +44,18 @@ public class BookcaseTest {
         } while (true);
     }
 
-    private static void printBookcase(Book[] books, int countBooks) {
-        int shelfWidth = 2;
-
-        for (int i = 0; i < countBooks; i++) {
-            for (int j = 0; j < countBooks; j++) {
-                if (books[i].getLength() > shelfWidth) {
-                    shelfWidth = books[i].getLength();
-                }
-                if (books[i].getLength() > books[j].getLength() && books[i].getLength() > shelfWidth) {
-                    shelfWidth = books[i].getLength();
-                }
-            }
-        }
-
+    private static void printBookcase(Book[] books) {
         for (Book book : books) {
             if (book != null) {
+                int length = book.getLength();
+                if (length >= shelfWidth) shelfWidth = length;
                 System.out.print("|" + book);
-                System.out.println(" ".repeat(shelfWidth - book.getLength()) + "|");
+                System.out.println(" ".repeat(shelfWidth - length) + "|");
+                System.out.println("-".repeat(shelfWidth));
+            } else {
+                System.out.println("|" + " ".repeat(shelfWidth - 2) + "|");
                 System.out.println("-".repeat(shelfWidth));
             }
-        }
-        
-        for (int i = 0; i < books.length - countBooks; i++) {
-            System.out.println("|" + " ".repeat(shelfWidth - 2) + "|");
-            System.out.println("-".repeat(shelfWidth));
         }
     }
 
